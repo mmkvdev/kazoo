@@ -239,7 +239,7 @@
 
 -type store_fun() :: kz_term:ne_binary() | fun(() -> kz_term:ne_binary()).
 
--define(MAX_WAIT, ?MILLISECONDS_IN_DAY).
+-define(MAX_WAIT, kapps_config:get(?CONFIG_CAT, <<"max_wait">>, ?MILLISECONDS_IN_DAY)).
 
 -define(CONFIG_CAT, <<"call_command">>).
 
@@ -1342,7 +1342,7 @@ b_hold(Call) -> b_hold(?MAX_WAIT, 'undefined', Call).
 -spec b_hold(timeout() | kz_term:api_binary(), kapps_call:call()) ->
           kapps_api_std_return().
 b_hold(Timeout, Call) when is_integer(Timeout);
-                           Timeout =:= ?MAX_WAIT ->
+                           Timeout =:= 'infinity' ->
     b_hold(Timeout, 'undefined', Call);
 b_hold(MOH, Call) -> b_hold(?MAX_WAIT, MOH, Call).
 
