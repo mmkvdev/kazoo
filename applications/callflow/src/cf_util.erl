@@ -431,7 +431,7 @@ send_default_response(Cause, Call) ->
                 {'error', 'no_response'} ->
                     lager:debug("failed to send default response for ~s", [Cause]);
                 {'ok', NoopId} ->
-                    _ = kapps_call_command:wait_for_noop(Call, NoopId),
+                    _ = kapps_call_command:wait_for_noop(Call, NoopId, 2000),
                     lager:debug("sent default response for ~s (~s)", [Cause, NoopId])
             end
     end.
